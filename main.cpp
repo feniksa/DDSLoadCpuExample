@@ -1,12 +1,24 @@
 #include <iostream>
 #include <DirectXTex.h>
+#include <fstream>
 
 using namespace DirectX;
+using namespace std;
 
-int main()
+int wmain(int argc, wchar_t* argv[])
 {
+	if (argc != 3) {
+		std::cerr << "not enough args\n";
+		return 2;
+	}
+
 	// File name of the DDS texture
-	const wchar_t* filename = L"HorizonForbiddenWest.exe_SRV_frame5016_r0_4_5.dds";
+	const wchar_t* filename = argv[1];
+	std::ofstream outFile(argv[2], std::ios::binary);
+	if (!outFile.is_open()) {
+		std::wcerr << L"can't open file " << argv[2] << std::endl;
+		return 3;
+	}
 
 	// Variables to hold texture metadata and the image data
 	TexMetadata metadata = {};
@@ -28,20 +40,19 @@ int main()
 
 	// Access the first image from the loaded texture (for example, level 0, array slice 0)
 	const Image* img = image.GetImage(0, 0, 0);
-	if (img)
-	{
-		// For example, print out the row pitch
-		std::wcout << L"Row pitch: " << img->rowPitch << std::endl;
-
-		// You can now access the pixel data via img->pixels.
-		// For instance, processing the first few bytes:
-		const uint8_t* pixelData = img->pixels;
-		std::wcout << L"First pixel value (first byte): " << static_cast<unsigned int>(pixelData[0]) << std::endl;
-	}
-	else
-	{
+	if (!img) {
 		std::wcerr << L"Failed to retrieve image data from the DDS file." << std::endl;
+		return 1;
 	}
+
+	std::wcout << L"Row pitch: " << img->rowPitch << std::endl;
+
+	const uint8_t* pixelData = img->pixels;
+	//std::wcout << L"First pixel value (first byte): " << static_cast<unsigned int>(pixelData[0]) << std::endl;
+
+	outFile.write(reinterpret_cast<const char*>(&pixelData[0]), img->slicePitch);
+
+	outFile.close();
 
 	return 0;
 }
