@@ -2,6 +2,8 @@
 
 DDS to PNG/RAW image converter
 
+![lena dashboard image](https://github.com/feniksa/DDSLoadCpuExample/blob/main/docs/lena.png?raw=true)
+
 # Usage
 
 To convert `input.dds` into `out.png` execute command
