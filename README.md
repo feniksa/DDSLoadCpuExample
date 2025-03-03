@@ -2,7 +2,7 @@
 
 DDS to PNG/RAW image converter
 
-![lena dashboard image](https://github.com/feniksa/DDSLoadCpuExample/blob/main/docs/lena.png?raw=true | width=100)
+<img alt="lena dashboard image" src="https://github.com/feniksa/DDSLoadCpuExample/blob/main/docs/lena.png?raw=true" width="100" />
 
 # Usage
 
