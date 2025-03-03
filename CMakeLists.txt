@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
-project(dssloader)
+project(ddsloader)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -14,11 +14,11 @@ set(SOURCES
         main.cpp
 )
 
-add_executable(dssloader ${HEADERS} ${SOURCES})
-target_link_libraries(dssloader PRIVATE Microsoft::DirectXTex)
+add_executable(ddsloader ${HEADERS} ${SOURCES})
+target_link_libraries(ddsloader PRIVATE Microsoft::DirectXTex)
 
 if (MSVC)
-    target_compile_options(dssloader PRIVATE
+    target_compile_options(ddsloader PRIVATE
             /W4             # Enable high warning level
             /WX             # Treat warnings as errors
             /MP             # Enable multi-threaded compilation
@@ -26,13 +26,13 @@ if (MSVC)
     )
 
     if (CMAKE_BUILD_TYPE STREQUAL "Release")
-        target_compile_options(dssloader PRIVATE /O2 /GL) # Enable whole-program optimization
-        target_link_options(dssloader PRIVATE /LTCG)      # Enable link-time code generation
+        target_compile_options(ddsloader PRIVATE /O2 /GL) # Enable whole-program optimization
+        target_link_options(ddsloader PRIVATE /LTCG)      # Enable link-time code generation
     elseif (CMAKE_BUILD_TYPE STREQUAL "Debug")
         # enable saniziers
-        target_compile_options(dssloader PRIVATE /Zi /Od /RTC1)
-        target_link_options(dssloader PRIVATE /DEBUG)
+        target_compile_options(ddsloader PRIVATE /Zi /Od /RTC1)
+        target_link_options(ddsloader PRIVATE /DEBUG)
     endif()
 endif()
 
-install(TARGETS dssloader RUNTIME DESTINATION bin)
+install(TARGETS ddsloader RUNTIME DESTINATION bin)

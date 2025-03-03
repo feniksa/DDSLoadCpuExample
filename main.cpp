@@ -5,7 +5,7 @@
 int wmain(int argc, wchar_t* argv[])
 {
 	if (argc != 3) {
-		std::cerr << "Not enough args. Usage: dssloader input.dss output.png\n";
+		std::cerr << "Not enough args. Usage: ddsloader input.dss output.png\n";
 		return 2;
 	}
 	// File name of the DDS texture
