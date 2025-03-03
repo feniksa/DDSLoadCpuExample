@@ -2,11 +2,11 @@
 #include <iostream>
 #include <filesystem>
 
-int wmain(int argc, wchar_t* argv[])
+int wmain(const int argc, const wchar_t* argv[])
 {
 	if (argc != 3) {
-		std::cerr << "Not enough args. Usage: ddsloader input.dss output.png\n";
-		return 2;
+		std::cerr << "Not enough arguments \n\nUsage: ddsloader input.dds output.png\n";
+		return 1;
 	}
 	// File name of the DDS texture
 	const wchar_t* filename = argv[1];
@@ -20,7 +20,7 @@ int wmain(int argc, wchar_t* argv[])
 	if (FAILED(hr))
 	{
 		std::wcerr << L"Failed to load DDS file: " << filename << std::endl;
-		return 1;
+		return 2;
 	}
 
 	// Print out some metadata about the loaded texture
@@ -33,12 +33,12 @@ int wmain(int argc, wchar_t* argv[])
 	const DirectX::Image* img = image.GetImage(0, 0, 0);
 	if (!img) {
 		std::wcerr << L"Failed to retrieve image data from the DDS file." << std::endl;
-		return 1;
+		return 3;
 	}
 
 	std::wcout << L"Row pitch: " << img->rowPitch << std::endl;
 
-	std::filesystem::path path(argv[2]);
+	const std::filesystem::path path(argv[2]);
 	bool result;
 	if (path.extension() == L".png") {
 		result = saveAsPng(&image, argv[2]);
@@ -46,5 +46,5 @@ int wmain(int argc, wchar_t* argv[])
 		result = saveAsRaw(&image, argv[2]);
 	}
 
-	return result == true ? 0 : 5;
+	return result == true ? 0 : 4;
 }
