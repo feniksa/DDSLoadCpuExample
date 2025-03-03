@@ -17,6 +17,15 @@ To convert `input.dds` into raw image `out.raw` execute command
 
 `$ ddsload.exe input.dds output.raw`
 
+# Supported platforms
+
+* Windows 10
+* Windows 11
+
+# Dependencies
+
+* DirectXTex
+
 # How to compile on windows 10
 1. git clone https://github.com/microsoft/vcpkg.git
 2. cd vcpkg
