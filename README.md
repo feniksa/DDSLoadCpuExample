@@ -1,4 +1,5 @@
-# DDSLoadCpuExample
+# DDS frame buffer data to image converter
+
 DDS to PNG/RAW image converter
 
 # Usage
