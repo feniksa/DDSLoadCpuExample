@@ -7,3 +7,5 @@ find_package(directxtex CONFIG REQUIRED)
 
 add_executable(dssloader main.cpp)
 target_link_libraries(dssloader PRIVATE Microsoft::DirectXTex)
+
+install(TARGETS dssloader RUNTIME DESTINATION bin)
