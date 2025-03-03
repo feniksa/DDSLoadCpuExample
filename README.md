@@ -1,8 +1,16 @@
 # DDSLoadCpuExample
-DDS to raw image converter
+DDS to PNG/RAW image converter
 
 # Usage
-`ddsload input.dds output.raw`
+
+To convert `input.dds` into `out.png` execute command
+
+`$ ddsload.exe input.dds output.png` 
+
+
+To convert `input.dds` into raw image `out.raw` execute command
+
+`$ ddsload.exe input.dds output.raw`
 
 # How to compile on windows 10
 1. git clone https://github.com/microsoft/vcpkg.git
