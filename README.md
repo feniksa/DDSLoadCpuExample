@@ -8,7 +8,7 @@ DDS to PNG/RAW image converter
 
 # Usage
 
-To convert `input.dds` into `out.png` execute command
+To convert `input.dds` into `output.png` execute command
 
 `$ ddsload.exe input.dds output.png` 
 
