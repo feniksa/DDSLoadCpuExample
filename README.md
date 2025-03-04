@@ -13,7 +13,7 @@ To convert `input.dds` into `output.png` execute command
 `$ ddsload.exe input.dds output.png` 
 
 
-To convert `input.dds` into raw image `out.raw` execute command
+To convert `input.dds` into raw image `output.raw` execute command
 
 `$ ddsload.exe input.dds output.raw`
 
