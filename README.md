@@ -32,8 +32,8 @@ To convert `input.dds` into raw image `output.raw` execute command
 3. bootstrap-vcpkg.bat
 4. Create env. variable `VCPKG_ROOT`, set to vcpkg directory
 5. Modify PATH env. variable, add vcpkg directory
-6. open terminal, cd to `DDSLoadCpuExample` directory
-7. create build directory
-8. cd build
-9. `cmake --preset "vcpkg" ..`
-10. Open Visual Studio, compile
+6. open terminal, cd to project `DDS_image_converter` directory
+7. create build directory `mkdir build`
+8. Go to build directory `cd build`
+9. Configure project `cmake --preset "vcpkg" ..` for Visual Studio 2022
+10. Open Visual Studio, open project sln file in build directory, compile release or debug
