@@ -2,12 +2,31 @@
 #include <iostream>
 #include <filesystem>
 
+struct LibraryLoader
+{
+	LibraryLoader() 
+	{
+		CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+	}
+
+	~LibraryLoader() 
+	{
+		CoUninitialize();
+	}
+
+	LibraryLoader(const LibraryLoader&)            = delete;
+	LibraryLoader& operator=(const LibraryLoader&) = delete;
+};
+
 int wmain(const int argc, const wchar_t* argv[])
 {
 	if (argc != 3) {
 		std::cerr << "Not enough arguments \n\nUsage: ddsloader input.dds output.png\n";
 		return 1;
 	}
+
+	LibraryLoader loader;
+
 	// File name of the DDS texture
 	const wchar_t* filename = argv[1];
 

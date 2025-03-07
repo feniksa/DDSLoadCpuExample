@@ -31,31 +31,41 @@ bool saveAsRaw(const DirectX::ScratchImage* image, const wchar_t* filename)
 
 bool saveAsPng(const DirectX::ScratchImage* image, const wchar_t* filename)
 {
-	CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-
 	// Convert to a format compatible with WIC
-	DirectX::ScratchImage converted;
-	HRESULT hr;
-	hr = Convert(image->GetImages(), image->GetImageCount(), image->GetMetadata(),
-	DXGI_FORMAT_R8G8B8A8_UNORM, DirectX::TEX_FILTER_DEFAULT, 0.0f, converted);
-	if (FAILED(hr))
-	{
-		wprintf(L"Failed to convert image. HRESULT: 0x%X\n", hr);
-		CoUninitialize();
-		return false;
+	const DirectX::TexMetadata& metadata = image->GetMetadata();
+
+	if (metadata.format != DXGI_FORMAT_R8G8B8A8_UNORM) {
+		DirectX::ScratchImage converted;
+		HRESULT hr;
+		hr = Convert(image->GetImages(), image->GetImageCount(), image->GetMetadata(),
+				DXGI_FORMAT_R8G8B8A8_UNORM, DirectX::TEX_FILTER_DEFAULT, DirectX::TEX_THRESHOLD_DEFAULT, converted);
+		if (FAILED(hr))
+		{
+			wprintf(L"Failed to convert image. HRESULT: 0x%X\n", hr);
+			return false;
+		}
+		// Save as PNG
+		hr = SaveToWICFile(*converted.GetImage(0, 0, 0), DirectX::WIC_FLAGS_NONE,
+		GUID_ContainerFormatPng, filename);
+		if (FAILED(hr))
+		{
+			wprintf(L"Failed to save PNG file. HRESULT: 0x%X\n", hr);
+			return false;
+		}
+	} else {
+		HRESULT hr;
+		// Save as PNG
+		hr = SaveToWICFile(*image->GetImage(0, 0, 0), DirectX::WIC_FLAGS_NONE,
+		GUID_ContainerFormatPng, filename);
+		if (FAILED(hr))
+		{
+			wprintf(L"Failed to save PNG file. HRESULT: 0x%X\n", hr);
+			return false;
+		}
 	}
+
 	
-	// Save as PNG
-	hr = SaveToWICFile(*converted.GetImage(0, 0, 0), DirectX::WIC_FLAGS_NONE,
-	GUID_ContainerFormatPng, filename);
-	if (FAILED(hr))
-	{
-		wprintf(L"Failed to save PNG file. HRESULT: 0x%X\n", hr);
-		CoUninitialize();
-		return false;
-	}
-	
-	CoUninitialize();
+
 	return true;
 }
 
